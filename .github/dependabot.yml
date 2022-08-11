@@ -1,7 +1,23 @@
 version: 2
+
+registries:
+  terraform-cloud:
+    type: terraform-registry
+    url: https://app.terraform.io
+    token: ${{ secrets.CI_TF_TOKEN }}
+
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "waitify-io/eng-all"
+
+  - package-ecosystem: "terraform"
+    directory: "/"
+    registries:
+      - terraform-cloud
     schedule:
       interval: "weekly"
     reviewers:
